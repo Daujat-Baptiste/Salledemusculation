@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ path('accueil') }}">Gym</a>
+    <a class="navbar-brand" href="{{ path('index') }}">Gym</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,14 +7,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('') }}">Rubrique</a>
+                <a class="nav-link" href="">Rubrique</a>
+            </li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </li>
+            {% else %}
+            <li>
+                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
             </li>
             <li>
-                <a class="nav-link" href="{{ path('') }}">Se connecter</a>
+                <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
             </li>
-            <li>
-                <a class="nav-link" href="{{ path('') }}">S'inscrire</a>
-            </li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>
