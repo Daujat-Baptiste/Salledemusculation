@@ -4,5 +4,8 @@
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
-    {{ form(rubriqueForm) }}
+    <div class="container-fluid">
+        <p>Modifier le nom de la rubrique</p>
+        <p>{{ form(form) }}</p>
+    </div>
 {% endblock %}

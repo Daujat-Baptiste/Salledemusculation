@@ -17,8 +17,6 @@ class RubriqueType extends AbstractType
         $builder
             ->add('nom',TextType::class,['label'=>'Nom'])
             ->add('save',SubmitType::class,['label'=>'Valider'])
-            ->add('modify',SubmitType::class,['label'=>'Modifier'])
-            ->add('delete',SubmitType::class,['label'=>'Supprimer'])
         ;
     }
 

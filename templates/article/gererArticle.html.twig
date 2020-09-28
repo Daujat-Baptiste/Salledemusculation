@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rubriques{% endblock %}
+{% block title %}Articles{% endblock %}
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
     <div class="container-fluid">
         <div class="row">
-            {% for rubriques in rubriques %}
-                {{ rubriques.getNom() }}
+            {% for articles in articles %}
+                {{ articles.getNom() }}
                 <a class="btn btn-danger" href="{{ path('deleteRubrique',{ 'id': rubriques.getId()}) }}">Supprimer</a>
                 <a class="btn btn-secondary" href="{{ path('editRubrique',{ 'id': rubriques.getId()}) }}">Modifier</a>
             {% endfor %}
