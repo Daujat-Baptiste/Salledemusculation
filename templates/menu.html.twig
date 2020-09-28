@@ -13,6 +13,12 @@
                 <li>
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
+                <li>
+                    <a class="nav-link" href="#">Mon compte</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{{ path('administration') }}">Administration</a>
+                </li>
             {% else %}
             <li>
                 <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>

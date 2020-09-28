@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+   {{ include('menuAdmin.html.twig') }}
+   <div class="container-fluid">
+   {% for rubrique in rubriques %}
+      <div class="row">
+      {{ form.nom }}
+         {{ form.modify }}
+         {{ form.delete }}
+      </div>
+   {% endfor %}
+   </div>
+{% endblock %}

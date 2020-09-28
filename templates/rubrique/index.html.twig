@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rubriques{% endblock %}
+
+{% block body %}
+{{ include('menuAdmin.html.twig') }}
+    <div class="container-fluid">
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('creerRubrique') }}">Créer rubrique</a></button>
+            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('gererRubrique') }}">Gérer rubrique</a></button>
+        </div>
+    </div>
+{% endblock %}

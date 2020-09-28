@@ -2,38 +2,20 @@
 
 {% block title %}Accueil{% endblock %}
 {% block body %}
-    <div class="container p-5">
-    <div class="card-deck ">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
+    <div class="container-fluid p-5">
+        <div class="card-group  text-center">
+        {% for abonnements in abonnements %}
+        <div class="card container-fluid">
+            <img src="{{ abonnements.image }}" class="card-img-top w-25 img-responsive"  alt="...">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <h5 class="card-title">{{ abonnements.nom }}</h5>
+                <p class="card-text">{{ abonnements.description }}</p>
+                <p class="card-text">{{ abonnements.prix }} €</p>
             </div>
             <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
             </div>
         </div>
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
+        {% endfor %}
         </div>
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
     </div>
 {% endblock %}
