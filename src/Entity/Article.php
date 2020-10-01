@@ -38,7 +38,7 @@ class Article
     private $auteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=rubrique::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Rubrique::class, inversedBy="articles")
      */
     private $id_rubrique;
 
@@ -95,12 +95,12 @@ class Article
         return $this;
     }
 
-    public function getIdRubrique(): ?rubrique
+    public function getIdRubrique(): ?Rubrique
     {
         return $this->id_rubrique;
     }
 
-    public function setIdRubrique(?rubrique $id_rubrique): self
+    public function setIdRubrique(?Rubrique $id_rubrique): self
     {
         $this->id_rubrique = $id_rubrique;
 
