@@ -16,8 +16,6 @@ class ArticleType extends AbstractType
         $builder
             ->add('nom',TextType::class,['label'=>'Nom'])
             ->add('contenu',TextType::class,['label'=>'Contenu'])
-            ->add('date',TextType::class,['label'=>'Date'])
-            ->add('auteur',TextType::class,['label'=>'Auteur'])
             ->add('id_rubrique',TextType::class,['label'=>'id'])
             ->add('save',SubmitType::class,['label'=>'Valider'])
         ;

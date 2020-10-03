@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,18 +22,20 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/create", name="create_article")
      */
-    public function create(Request $request)
+    public function create(Request $request,RubriqueRepository $repository)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setDate();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
         }
         return $this->render('article/creerArticle.html.twig',[
             'articleForm' => $form->createView(),
+            'rubriques' => $repository->findAll(),
         ]);
     }
     /**
