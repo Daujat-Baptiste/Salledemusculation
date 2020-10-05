@@ -37,4 +37,21 @@ class Redacteur
 
         return $this;
     }
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mdp;
+
+    public function getMdp(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setMdp(string $mdp): self
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
 }

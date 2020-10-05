@@ -47,7 +47,7 @@ class RedacteurController extends AbstractController
     public function gererArticle(RedacteurRepository $repository)
     {
         $redacteur = new Redacteur();
-        return $this->render('article/gererArticle.html.twig',
+        return $this->render('redacteur/gererRedacteur.html.twig',
             ['redacteurs' => $repository->findAll(),
             ]);
     }
