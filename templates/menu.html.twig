@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="">Rubrique</a>
+                <a class="nav-link" href="{{ path('listerubriques') }}">Rubrique</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li>

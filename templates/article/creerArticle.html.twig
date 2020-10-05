@@ -4,5 +4,17 @@
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
-    {{ form(articleForm) }}
+    Titre: {{ form(articleForm.nom) }}
+    Contenu: {{ form(articleForm.contenu) }}
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Liste des rubriques
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for rubrique in rubriques %}
+                {{ rubrique.nom }}
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

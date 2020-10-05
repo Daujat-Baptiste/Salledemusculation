@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Rubrique;
 use App\Form\RubriqueType;
+use App\Repository\ArticleRepository;
 use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,4 +91,25 @@ class RubriqueController extends AbstractController
                 'form' => $form->createView(),
             ]);
     }
+
+    /**
+     * @Route("/listerubriques", name="listerubriques")
+     */
+    public function listerubriques(RubriqueRepository $repository)
+    {
+        $rubriques = $repository->findAll();
+        return $this->render('rubrique/listerubriques.html.twig',
+        ["rubriques"=>$rubriques]);
+    }
+
+    /**
+     * @Route("/listearticles/{id}", name="listearticles")
+     */
+    public function listearticles(ArticleRepository $repository,$id)
+    {
+        $articles = $repository->findBy(array('id_rubrique' => $id));
+        return $this->render('rubrique/listearticles.html.twig',
+            ["articles"=>$articles]);
+    }
+
 }

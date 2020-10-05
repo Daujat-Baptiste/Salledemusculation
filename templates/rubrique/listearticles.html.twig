@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rubriques{% endblock %}
+
+{% block body %}
+    {{ include('menuAdmin.html.twig') }}
+    <div class="container">
+        {% for article in  articles %}
+            <div class="row">
+                <a href="{{ path('articleinfo',{id : article.id}) }}">{{ article.nom }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
