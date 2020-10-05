@@ -23,15 +23,20 @@ class RubriqueController extends AbstractController
     /**
      * @Route("/creerrubrique", name="creerRubrique")
      */
-    public function creerRubrique(Request $request)
+    public function creerRubrique(Request $request,RubriqueRepository $repository)
     {
         $rubrique = new Rubrique();
+
         $form = $this->createForm(RubriqueType::class, $rubrique);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rubrique);
             $entityManager->flush();
+            $repoRubriqueAll=$repository->findAll();
+            return $this->render('rubrique/gererRubrique.html.twig',
+                ['rubriques' => $repoRubriqueAll,
+                ]);
         }
         return $this->render('rubrique/creerRubrique.html.twig', [
             'rubriqueForm' => $form->createView(),
@@ -47,9 +52,9 @@ class RubriqueController extends AbstractController
         $rubrique = new Rubrique();
         $form = $this->createForm(RubriqueType::class, $rubrique);
         $form->handleRequest($request);
-        $repoRubriqueAll = $repository->findAll();
+        $repoArticleAll = $repository->findAll();
         return $this->render('rubrique/gererRubrique.html.twig',
-            ['rubriques' => $repoRubriqueAll,
+            ['articles' => $repoArticleAll,
                 'form' => $form->createView(),
             ]);
     }

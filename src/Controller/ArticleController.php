@@ -19,40 +19,86 @@ class ArticleController extends AbstractController
     {
         return $this->render('article/index.html.twig');
     }
+
     /**
-     * @Route("/article/create", name="create_article")
+     * @Route("/creerarticle", name="create_article")
      */
-    public function create(Request $request,RubriqueRepository $repository)
+    public function create(Request $request, RubriqueRepository $repository,ArticleRepository $repositoryArt)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setDate();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
+            $repoArticleAll = $repositoryArt->findAll();
+            return $this->render('article/gererArticle.html.twig',
+                ['articles' => $repoArticleAll,
+                ]);
         }
-        return $this->render('article/creerArticle.html.twig',[
+        return $this->render('article/creerArticle.html.twig', [
             'articleForm' => $form->createView(),
             'rubriques' => $repository->findAll(),
         ]);
     }
     /**
-     * @Route("/article/gerer", name="gerer_article")
+     * @Route("/gererarticle", name="gerer_article")
      */
-    public function gerer()
+    public function gererArticle(ArticleRepository $repository)
     {
-        return $this->render('article/gererArticle.html.twig');
+        $article = new Article();
+        $repoArticleAll = $repository->findAll();
+        return $this->render('article/gererArticle.html.twig',
+            ['articles' => $repoArticleAll,
+            ]);
+    }
+
+    /**
+     * @Route("/gererarticle/delete/{id}", name="deleteArticle")
+     */
+    public function deleteArticle($id,ArticleRepository $repository)
+    {
+        $article = $repository->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($article);
+        $entityManager->flush();
+        $repoArticleAll = $repository->findAll();
+        return $this->render('article/gererArticle.html.twig',
+            ['articles' => $repoArticleAll,
+            ]);
+    }
+
+    /**
+     * @Route("/gererarticle/edit/{id}", name="editArticle")
+     */
+    public function editArticle($id,ArticleRepository $repository,Request $request)
+    {
+        $article = $repository->find($id);
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            $repoArticleAll = $repository->findAll();
+            return $this->render('article/gererArticle.html.twig',
+                ['articles' => $repoArticleAll,
+                ]);
+        }
+
+        return $this->render('article/editArticle.html.twig',
+            ['article' => $article,
+                'form' => $form->createView(),
+            ]);
     }
 
     /**
      * @Route("/article/{id}", name="articleinfo")
      */
-    public function article(ArticleRepository $repository,$id)
+    public function article(ArticleRepository $repository, $id)
     {
-        $article=$repository->find($id);
-        return $this->render('article/article.html.twig',['article'=>$article]);
+        $article = $repository->find($id);
+        return $this->render('article/article.html.twig', ['article' => $article]);
     }
 
 

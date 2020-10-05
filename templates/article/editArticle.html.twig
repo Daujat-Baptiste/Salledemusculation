@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    {{ include('menuAdmin.html.twig') }}
+    <div class="container-fluid">
+        <p>Modifier l'article</p>
+        <p>{{ form(form) }}</p>
+    </div>
+{% endblock %}

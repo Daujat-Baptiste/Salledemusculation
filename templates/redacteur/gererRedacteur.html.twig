@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rédacterus{% endblock %}
+
+{% block body %}
+    {{ include('menuAdmin.html.twig') }}
+    <div class="container-fluid">
+        <div class="row">
+            {% for redacteur in redacteurs %}
+                {{ redacteur.pseudo }}
+                <a class="btn btn-danger" href="{{ path('deleteRedacteur',{ 'id': redacteur.id}) }}">Supprimer</a>
+                <a class="btn btn-secondary" href="{{ path('editRedacteur',{ 'id': redacteur.id}) }}">Modifier</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
