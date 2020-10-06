@@ -47,10 +47,8 @@ class ArticleController extends AbstractController
      */
     public function gererArticle(ArticleRepository $repository)
     {
-        $article = new Article();
-        $repoArticleAll = $repository->findAll();
         return $this->render('article/gererArticle.html.twig',
-            ['articles' => $repoArticleAll,
+            ['articles' => $repository->findAll(),
             ]);
     }
 
@@ -91,15 +89,8 @@ class ArticleController extends AbstractController
                 'form' => $form->createView(),
             ]);
     }
-
-    /**
-     * @Route("/article/{id}", name="articleinfo")
-     */
-    public function article(ArticleRepository $repository, $id)
-    {
-        $article = $repository->find($id);
-        return $this->render('article/article.html.twig', ['article' => $article]);
-    }
+    
+    
 
 
 }

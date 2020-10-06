@@ -28,14 +28,14 @@ class Article
     private $contenu;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $auteur;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Rubrique::class, inversedBy="articles")
      */
     private $id_rubrique;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Redacteur::class, inversedBy="articles")
+     */
+    private $redacteur;
 
     public function getId(): ?int
     {
@@ -66,19 +66,6 @@ class Article
         return $this;
     }
 
-
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): self
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
     public function getIdRubrique(): ?Rubrique
     {
         return $this->id_rubrique;
@@ -87,6 +74,18 @@ class Article
     public function setIdRubrique(?Rubrique $id_rubrique): self
     {
         $this->id_rubrique = $id_rubrique;
+
+        return $this;
+    }
+
+    public function getRedacteur(): ?Redacteur
+    {
+        return $this->redacteur;
+    }
+
+    public function setRedacteur(?Redacteur $redacteur): self
+    {
+        $this->redacteur = $redacteur;
 
         return $this;
     }

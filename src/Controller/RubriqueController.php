@@ -54,7 +54,7 @@ class RubriqueController extends AbstractController
         $form->handleRequest($request);
         $repoArticleAll = $repository->findAll();
         return $this->render('rubrique/gererRubrique.html.twig',
-            ['articles' => $repoArticleAll,
+            ['rubriques' => $repoArticleAll,
                 'form' => $form->createView(),
             ]);
     }

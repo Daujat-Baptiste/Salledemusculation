@@ -12,7 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use function Sodium\add;
 
 class ArticleType extends AbstractType
 {
@@ -21,7 +20,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('nom',TextType::class,['label'=>'Nom'])
             ->add('contenu',TextareaType::class,['label'=>'Contenu'])
-            ->add('auteur',EntityType::class,[
+            ->add('redacteur',EntityType::class,[
                 'class'=>Redacteur::class,
                 'choice_label'=>'pseudo'
             ])
