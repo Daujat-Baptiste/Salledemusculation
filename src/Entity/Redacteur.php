@@ -33,6 +33,11 @@ class Redacteur
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mdp;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -77,6 +82,18 @@ class Redacteur
                 $article->setRedacteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMdp(): ?string
+    {
+        return $this->mdp;
+    }
+
+    public function setMdp(string $mdp): self
+    {
+        $this->mdp = $mdp;
 
         return $this;
     }

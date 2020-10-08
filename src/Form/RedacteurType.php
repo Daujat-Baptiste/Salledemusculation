@@ -15,6 +15,7 @@ class RedacteurType extends AbstractType
     {
         $builder
             ->add('pseudo',TextType::class,['label'=>'Prénom'])
+            ->add('mdp',TextType::class,['label'=>'Mot de passe'])
             ->add('save',SubmitType::class,['label'=>'Valider'])
         ;
     }

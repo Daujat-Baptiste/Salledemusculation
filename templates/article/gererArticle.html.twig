@@ -4,13 +4,14 @@
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
-    <div class="container-fluid">
-        <div class="row">
-            {% for article in articles %}
+    <div class="container">
+        {% for article in articles %}
+            <div class="row">
                 {{ article.nom }}
                 <a class="btn btn-danger" href="{{ path('deleteArticle',{ 'id': article.id}) }}">Supprimer</a>
                 <a class="btn btn-secondary" href="{{ path('editArticle',{ 'id': article.id}) }}">Modifier</a>
-            {% endfor %}
-        </div>
+                <a class="btn btn-primary" href="{{ path('index/index',{ 'id': article.id}) }}">Afficher sur l'accueil</a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

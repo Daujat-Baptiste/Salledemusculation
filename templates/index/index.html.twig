@@ -2,20 +2,8 @@
 
 {% block title %}Accueil{% endblock %}
 {% block body %}
-    <div class="container-fluid p-5">
-        <div class="card-group  text-center">
-            {% for abonnements in abonnements %}
-                <div class="card container-fluid">
-                    <img src="{{ abonnements.image }}" class="card-img-top w-25 img-responsive" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ abonnements.nom }}</h5>
-                        <p class="card-text">{{ abonnements.description }}</p>
-                        <p class="card-text">{{ abonnements.prix }} €</p>
-                    </div>
-                    <div class="card-footer">
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    <h1>
+        <bold>Wolfit</bold>
+    </h1>
+    <h2>La salle de la meute</h2>
 {% endblock %}
