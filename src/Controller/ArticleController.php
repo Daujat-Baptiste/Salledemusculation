@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Accueil;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\AccueilRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +25,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/creerarticle", name="create_article")
      */
-    public function create(Request $request, RubriqueRepository $repository,ArticleRepository $repositoryArt)
+    public function create(Request $request, RubriqueRepository $repository, ArticleRepository $repositoryArt)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -42,6 +44,7 @@ class ArticleController extends AbstractController
             'rubriques' => $repository->findAll(),
         ]);
     }
+
     /**
      * @Route("/gererarticle", name="gerer_article")
      */
@@ -55,7 +58,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/gererarticle/delete/{id}", name="deleteArticle")
      */
-    public function deleteArticle($id,ArticleRepository $repository)
+    public function deleteArticle($id, ArticleRepository $repository)
     {
         $article = $repository->find($id);
         $entityManager = $this->getDoctrine()->getManager();
@@ -70,7 +73,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/gererarticle/edit/{id}", name="editArticle")
      */
-    public function editArticle($id,ArticleRepository $repository,Request $request)
+    public function editArticle($id, ArticleRepository $repository, Request $request)
     {
         $article = $repository->find($id);
         $form = $this->createForm(ArticleType::class, $article);
@@ -89,16 +92,35 @@ class ArticleController extends AbstractController
                 'form' => $form->createView(),
             ]);
     }
+
     /**
      * @Route("/article/{id}", name="articleinfo")
      */
-    public function Article(ArticleRepository $repository,$id)
+    public function Article(ArticleRepository $repository, $id)
     {
         return $this->render('article/articleinfo.html.twig',
             ['article' => $repository->find($id),
             ]);
     }
-    
 
+    /**
+     * @Route("/{id}", name="send_accueil")
+     */
+    public function send_accueil(ArticleRepository $articleRepository, int $id,AccueilRepository $accueilRepository)
+    {
+        $article = $articleRepository->find($id);
+
+        $acc = new Accueil();
+        $acc->setArticle($article);
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($acc);
+        $entityManager->flush();
+
+        return $this->render('article/gererArticle.html.twig',[
+            'articles'=>$articleRepository->findAll()
+        ]);
+    }
 
 }

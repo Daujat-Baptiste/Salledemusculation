@@ -8,9 +8,15 @@
         {% for article in articles %}
             <div class="row">
                 {{ article.nom }}
+                <div class="col">
                 <a class="btn btn-danger" href="{{ path('deleteArticle',{ 'id': article.id}) }}">Supprimer</a>
+                </div>
+                <div class="col">
                 <a class="btn btn-secondary" href="{{ path('editArticle',{ 'id': article.id}) }}">Modifier</a>
-                <a class="btn btn-primary" href="{{ path('index/index',{ 'id': article.id}) }}">Afficher sur l'accueil</a>
+                </div>
+                <div class="col">
+                <a class="btn btn-primary" href="{{ path('send_accueil',{ 'id': article.id}) }}">Afficher sur l'accueil</a>
+                </div>
             </div>
         {% endfor %}
     </div>
