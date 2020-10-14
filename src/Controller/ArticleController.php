@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Accueil;
 use App\Entity\Article;
+use App\Form\AccueilType;
 use App\Form\ArticleType;
 use App\Repository\AccueilRepository;
 use App\Repository\ArticleRepository;
@@ -104,22 +105,27 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="send_accueil")
+     * @Route("/accueil/{id}", name="send_accueil")
      */
-    public function send_accueil(ArticleRepository $articleRepository, int $id,AccueilRepository $accueilRepository)
+    public function send_accueil(ArticleRepository $articleRepository, $id, AccueilRepository $accueilRepository)
     {
         $article = $articleRepository->find($id);
+        $accueil = $accueilRepository->findBy(['actif' => 'actif']);
 
-        $acc = new Accueil();
-        $acc->setArticle($article);
-
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($acc);
-        $entityManager->flush();
-
-        return $this->render('article/gererArticle.html.twig',[
-            'articles'=>$articleRepository->findAll()
+        if ($accueil == null) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $accueil = new Accueil();
+            $accueil->setActif('actif');
+            $accueil->setArticle($article);
+            $entityManager->persist($accueil);
+            $entityManager->flush();
+        } else {
+            $accueil[0]->setArticle($article);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+        }
+        return $this->render('article/gererArticle.html.twig', [
+            'articles' => $articleRepository->findAll()
         ]);
     }
 

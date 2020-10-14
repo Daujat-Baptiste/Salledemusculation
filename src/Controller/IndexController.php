@@ -16,10 +16,10 @@ class IndexController extends AbstractController
      * @Route("/", name="index")
      */
     public function index(AccueilRepository $repository)
-     {
-             return $this->render('index/index.html.twig', [
-                 'article'=>$repository->findAll(),
-             ]);
-         }
+    {
+        return $this->render('index/index.html.twig', [
+            'article' => $repository->findAll(),
+        ]);
+    }
 
 }
