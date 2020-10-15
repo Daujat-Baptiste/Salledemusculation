@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="{{ path('index') }}"><img src="{{ asset('images/menu/wolfit.png') }}"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand w-50 h-50" style="width: 10%!important;" href="{{ path('index') }}"><img style="width: 100%; height: 100%; object-fit: contain;" src="{{ asset('images/menu/wolfit.png') }}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -10,22 +9,20 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('listerubriques') }}">Rubrique</a>
             </li>
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li>
-                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{{ path('administration') }}">Administration</a>
-                </li>
-            {% else %}
-                <li>
-                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
-                </li>
-            {% endif %}
-
         </ul>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="d-flex justify-content-center">
+                <a class="nav-link text-dark" href="{{ path('administration') }}">Administration</a>
+                <a class="nav-link text-dark" href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+
+        {% else %}
+            <div class="d-flex justify-content-center">
+                <a class="nav-link text-dark" href="{{ path('app_login') }}">Se connecter</a>
+                <a class="nav-link text-dark" href="{{ path('app_register') }}">S'inscrire</a>
+            </div>
+        {% endif %}
+
+
     </div>
 </nav>
