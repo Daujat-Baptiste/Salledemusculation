@@ -5,9 +5,24 @@
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
     <div class="container-fluid">
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('create_redacteur') }}">Créer rédacteur</a></button>
-            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('gerer_redacteur') }}">Gérer rédacteurs</a></button>
+
+        <div class="row">
+            <div class="container-fluid mt-4">
+                <table>
+                    <tr>
+                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark"><a
+                                    class="text-reset text-decoration-none" href="{{ path('create_redacteur') }}">Créer
+                                rédacteur</a></button>
+                    </tr>
+                    <tr>
+                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark mt-3 "><a
+                                    class="text-reset text-decoration-none"
+                                    href="{{ path('gerer_redacteur') }}">Gérer
+                                rédacteurs</a></button>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
+
 {% endblock %}

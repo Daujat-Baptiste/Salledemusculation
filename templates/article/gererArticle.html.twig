@@ -1,23 +1,39 @@
+
+{#début test#}
 {% extends 'base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
-    <div class="container">
-        {% for article in articles %}
-            <div class="row">
-                {{ article.nom }}
-                <div class="col">
-                <a class="btn btn-danger" href="{{ path('deleteArticle',{ 'id': article.id}) }}">Supprimer</a>
-                </div>
-                <div class="col">
-                <a class="btn btn-secondary" href="{{ path('editArticle',{ 'id': article.id}) }}">Modifier</a>
-                </div>
-                <div class="col">
-                <a class="btn btn-primary" href="{{ path('send_accueil',{ 'id': article.id}) }}">Afficher sur l'accueil</a>
-                </div>
-            </div>
-        {% endfor %}
+    <div class="container-fluid">
+        <table class="container-fluid bg-dark">
+            <hr class="my-8">
+            <tr>
+                <th>
+                    Liste des articles :
+                    <hr class="my-8">
+                </th>
+            </tr>
+            {% for article in articles %}
+                <tr>
+                    <td class="text-center">
+                        {{ article.nom }}
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-info btn-sm" href="{{ path('send_accueil',{ 'id': article.id}) }}">Afficher sur l'accueil</a>
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-warning btn-sm" href="{{ path('editArticle',{ 'id': article.id}) }}">Modifier</a>
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-danger btn-sm" href="{{ path('deleteArticle',{ 'id': article.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}
+{#fin test#}

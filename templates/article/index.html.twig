@@ -1,3 +1,4 @@
+{#début#}
 {% extends 'base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
@@ -5,9 +6,25 @@
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
     <div class="container-fluid">
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('create_article') }}">Créer article</a></button>
-            <button type="button" class="btn btn-secondary"><a class="text-reset text-decoration-none" href="{{ path('gerer_article') }}">Gérer articles</a></button>
+
+        <div class="row">
+            <div class="container-fluid mt-4">
+                <table>
+                    <tr>
+                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark"><a
+                                    class="text-reset text-decoration-none" href="{{ path('create_article') }}">Créer
+                                article</a></button>
+                    </tr>
+                    <tr>
+                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark mt-3 "><a
+                                    class="text-reset text-decoration-none"
+                                    href="{{ path('gerer_article') }}">Gérer
+                                articles</a></button>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
+
 {% endblock %}
+{#fin#}

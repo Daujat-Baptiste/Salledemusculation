@@ -3,10 +3,24 @@
 {% block title %}Rubriques{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {% for article in  articles %}
-            <div class="row">
-                <a href="{{ path('articleinfo',{id : article.id}) }}">{{ article.nom }}</a>
+    {# generer les articles en cards #}
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                <div class="card border-danger mb-3 mx-auto">
+                    <div class="card-body text-center">
+                        <h4 class="card-title border-warning "><strong>{{ article.nom }}</strong></h4>
+                        <p><small><i>
+                                    <bold>
+                                        Wolfit
+                                    </bold>
+                                </i></small></p>
+                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark mt-3 "><a
+                                    class="text-reset text-decoration-none"
+                                    href="{{ path('articleinfo', {id : article.id}) }}">voir en
+                                détail</a></button>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

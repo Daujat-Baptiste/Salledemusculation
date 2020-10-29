@@ -1,19 +1,58 @@
+
+{#début test#}
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
 {% block body %}
-    <h1>
-        <bold>Wolfit</bold>
-    </h1>
-    <h2>La salle de la meute</h2>
-    {% for a in article %}
-        <div class="container">
-            <div class="row">
-                <h1><bold>{{ a.article.nom }}</bold></h1>
-            </div>
-            <div class="row">
-                <h5>{{ a.article.contenu }}</h5>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-3 text-warning">WOLFIT</h1>
+                <p class="lead ml-2"> Toi aussi deviens l'Alpha ! </p>
+                <hr class="my-4">
+                <p>Tu trouveras toutes les informations nécessaires sur les salles Wolfit</p>
             </div>
         </div>
-    {% endfor %}
+        <div class="carousel-item">
+            <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-3 text-warning">LES RUBRIQUES</h1>
+                <p class="lead ml-2"> Tu souhaites tout savoir sur notre actu et avoir acces à nos consiel entrainement et nutrition ? </p>
+                <hr class="my-4">
+                <p>Tu trouvera tout ce qu'il te faut dans nos Rubriques</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-3 text-warning">CONTACT</h1>
+                <p class="lead ml-2"> Tu souhaites nous contacter, connaitre les horraires d'ouvertures ou savoir ou se trouvent nos salles ? </p>
+                <hr class="my-4">
+                <p>Tu trouveras toutes ces infos dans contact au bas de ta page !</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% for a in article %}
+    <h1>
+        <bold>{{ a.article.nom }}</bold>
+    </h1>
+    <div class="row">
+        <h5>{{ a.article.contenu }}</h5>
+    </div>
+{% endfor %}
+
 {% endblock %}
+{#fin test#}

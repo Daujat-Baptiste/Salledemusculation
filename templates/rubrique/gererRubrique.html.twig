@@ -5,12 +5,28 @@
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
     <div class="container-fluid">
-        <div class="row">
+        <table class="container-fluid bg-dark">
+            <hr class="my-8">
+            <tr>
+                <th>
+                    Liste des rubriques :
+                    <hr class="my-8">
+                </th>
+            </tr>
             {% for rubrique in rubriques %}
-                {{ rubrique.nom }}
-                <a class="btn btn-danger" href="{{ path('deleteRubrique',{ 'id': rubrique.id}) }}">Supprimer</a>
-                <a class="btn btn-secondary" href="{{ path('editRubrique',{ 'id': rubrique.id}) }}">Modifier</a>
+                <tr>
+                    <td class="text-center">
+                        {{ rubrique.nom }}
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-warning btn-sm" href="{{ path('editRubrique',{ 'id': rubrique.id}) }}">Modifier</a>
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-danger btn-sm" href="{{ path('deleteRubrique',{ 'id': rubrique.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </div>
+        </table>
     </div>
 {% endblock %}

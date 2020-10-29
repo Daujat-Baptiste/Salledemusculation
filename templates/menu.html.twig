@@ -1,28 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand w-50 h-50" style="width: 10%!important;" href="{{ path('index') }}"><img style="width: 100%; height: 100%; object-fit: contain;" src="{{ asset('images/menu/wolfit.png') }}"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+
+{#menu de la page#}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand w-50 h-50" style="width: 8%!important;" href="{{ path('index') }}"><img
+                style="width: 100%; height: 100%; object-fit: contain;" src="{{ asset('images/menu/logofond.png') }}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('listerubriques') }}">Rubrique</a>
+                <a class="nav-link text-dark h4" href="{{ path('listerubriques') }}">Rubriques</a>
             </li>
         </ul>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="d-flex justify-content-center">
-                <a class="nav-link text-dark" href="{{ path('administration') }}">Administration</a>
-                <a class="nav-link text-dark" href="{{ path('app_logout') }}">Se déconnecter</a>
+                <a class="nav-link text-dark h4" href="{{ path('administration') }}">Administration</a>
+                <a class="nav-link text-dark h4" href="{{ path('app_logout') }}">Se déconnecter</a>
             </div>
 
         {% else %}
             <div class="d-flex justify-content-center">
-                <a class="nav-link text-dark" href="{{ path('app_login') }}">Se connecter</a>
-                <a class="nav-link text-dark" href="{{ path('app_register') }}">S'inscrire</a>
+                <a class="nav-link text-dark h4" href="{{ path('app_login') }}">Se connecter</a>
+                <a class="nav-link text-dark h4" href="{{ path('app_register') }}">S'inscrire</a>
             </div>
         {% endif %}
 
-
     </div>
 </nav>
+
+
+{#titre de la page#}
+<h1 class="text-white bg-info mt-2">{% block titrePage %}{% endblock %}</h1>
