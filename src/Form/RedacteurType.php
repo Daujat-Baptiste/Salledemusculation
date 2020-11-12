@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Redacteur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +16,7 @@ class RedacteurType extends AbstractType
     {
         $builder
             ->add('pseudo',TextType::class,['label'=>'Prénom'])
-            ->add('mdp',TextType::class,['label'=>'Mot de passe'])
+            ->add('mdp',PasswordType::class,['label'=>'Mot de passe'])
             ->add('save',SubmitType::class,['label'=>'Valider'])
         ;
     }

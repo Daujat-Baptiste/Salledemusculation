@@ -58,9 +58,14 @@ class RedacteurController extends AbstractController
     public function deleteArticle($id, RedacteurRepository $repository)
     {
         $redacteur = $repository->find($id);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($redacteur);
-        $entityManager->flush();
+        if ($redacteur->getArticles()->isEmpty()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($redacteur);
+            $entityManager->flush();
+            $this->addFlash('success', 'Le rédacteur a été supprimé');
+        } else {
+            $this->addFlash('danger', 'Le rédacteur ne peut pas être supprimé car il a crée un ou plusieurs article(s)');
+        }
         return $this->render('redacteur/gererRedacteur.html.twig',
             ['redacteurs' => $repository->findAll(),
             ]);

@@ -65,9 +65,14 @@ class RubriqueController extends AbstractController
     public function deleteRubrique($id,RubriqueRepository $repository)
     {
         $rubrique = $repository->find($id);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($rubrique);
-        $entityManager->flush();
+        if ($rubrique->getArticles()->isEmpty()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($rubrique);
+            $entityManager->flush();
+            $this->addFlash('success', 'La rubrique a été supprimé');
+        } else {
+            $this->addFlash('danger', 'La rubrique ne peut pas être supprimée car elle contient un ou plusieurs article(s)');
+        }
         $repoRubriqueAll = $repository->findAll();
         return $this->render('rubrique/gererRubrique.html.twig',
             ['rubriques' => $repoRubriqueAll,
