@@ -59,12 +59,20 @@ class ArticleController extends AbstractController
     /**
      * @Route("/gererarticle/delete/{id}", name="deleteArticle")
      */
-    public function deleteArticle($id, ArticleRepository $repository)
+    public function deleteArticle($id, ArticleRepository $repository, AccueilRepository $accueilRepository)
     {
         $article = $repository->find($id);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($article);
-        $entityManager->flush();
+        $accueil = $accueilRepository->findBy(['actif' => 'actif']);
+
+        if ($accueil[0]->getArticle()->getId() == $id || !empty($accueil)) {
+            $this->addFlash('danger', 'L\'article ne peut pas être supprimé car il est affiché sur l\'accueil');
+        } else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($article);
+            $entityManager->flush();
+            $this->addFlash('success', 'L\'article a été supprimé');
+        }
+
         $repoArticleAll = $repository->findAll();
         return $this->render('article/gererArticle.html.twig',
             ['articles' => $repoArticleAll,
@@ -99,34 +107,40 @@ class ArticleController extends AbstractController
      */
     public function Article(ArticleRepository $repository, $id)
     {
-        return $this->render('article/articleinfo.html.twig',
-            ['article' => $repository->find($id),
-            ]);
-    }
-
-    /**
-     * @Route("/accueil/{id}", name="send_accueil")
-     */
-    public function send_accueil(ArticleRepository $articleRepository, $id, AccueilRepository $accueilRepository)
-    {
-        $article = $articleRepository->find($id);
-        $accueil = $accueilRepository->findBy(['actif' => 'actif']);
-
-        if ($accueil == null) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $accueil = new Accueil();
-            $accueil->setActif('actif');
-            $accueil->setArticle($article);
-            $entityManager->persist($accueil);
-            $entityManager->flush();
-        } else {
-            $accueil[0]->setArticle($article);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+        if (empty($repository->find($id))) {
+            return $this->redirectToRoute("listerubriques");
+        }else{
+            return $this->render('article/articleinfo.html.twig',
+                ['article' => $repository->find($id),
+                ]);
         }
-        return $this->render('article/gererArticle.html.twig', [
-            'articles' => $articleRepository->findAll()
-        ]);
     }
+
+
+/**
+ * @Route("/accueil/{id}", name="send_accueil")
+ */
+public
+function send_accueil(ArticleRepository $articleRepository, $id, AccueilRepository $accueilRepository)
+{
+    $article = $articleRepository->find($id);
+    $accueil = $accueilRepository->findBy(['actif' => 'actif']);
+
+    if ($accueil == null) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $accueil = new Accueil();
+        $accueil->setActif('actif');
+        $accueil->setArticle($article);
+        $entityManager->persist($accueil);
+        $entityManager->flush();
+    } else {
+        $accueil[0]->setArticle($article);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+    }
+    return $this->render('article/gererArticle.html.twig', [
+        'articles' => $articleRepository->findAll()
+    ]);
+}
 
 }
