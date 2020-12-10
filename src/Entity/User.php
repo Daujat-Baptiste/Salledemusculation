@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -60,6 +62,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $numtel;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Souscrire::class, mappedBy="User")
+     */
+    private $souscrires;
+
+    public function __construct()
+    {
+        $this->souscrires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -195,6 +207,36 @@ class User implements UserInterface
     public function setNumtel(string $numtel): self
     {
         $this->numtel = $numtel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Souscrire[]
+     */
+    public function getSouscrires(): Collection
+    {
+        return $this->souscrires;
+    }
+
+    public function addSouscrire(Souscrire $souscrire): self
+    {
+        if (!$this->souscrires->contains($souscrire)) {
+            $this->souscrires[] = $souscrire;
+            $souscrire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSouscrire(Souscrire $souscrire): self
+    {
+        if ($this->souscrires->removeElement($souscrire)) {
+            // set the owning side to null (unless already changed)
+            if ($souscrire->getUser() === $this) {
+                $souscrire->setUser(null);
+            }
+        }
 
         return $this;
     }

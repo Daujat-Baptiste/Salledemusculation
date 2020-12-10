@@ -23,10 +23,6 @@ class Redacteur
     {
         return $this->id;
     }
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pseudo;
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="redacteur")
@@ -34,25 +30,14 @@ class Redacteur
     private $articles;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      */
-    private $mdp;
+    private $User;
+
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
-    }
-
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
     }
 
     /**
@@ -86,14 +71,14 @@ class Redacteur
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getUser(): ?User
     {
-        return $this->mdp;
+        return $this->User;
     }
 
-    public function setMdp(string $mdp): self
+    public function setUser(?User $User): self
     {
-        $this->mdp = $mdp;
+        $this->User = $User;
 
         return $this;
     }

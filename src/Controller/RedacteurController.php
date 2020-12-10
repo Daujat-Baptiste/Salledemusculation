@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Redacteur;
 use App\Form\RedacteurType;
 use App\Repository\RedacteurRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,22 +23,10 @@ class RedacteurController extends AbstractController
     /**
      * @Route("/creerredacteur", name="create_redacteur")
      */
-    public function create(Request $request, RedacteurRepository $repository)
+    public function create(UserRepository $userRepository)
     {
-        $redacteur = new Redacteur();
-        $form = $this->createForm(RedacteurType::class, $redacteur);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($redacteur);
-            $entityManager->flush();
-
-            return $this->render('redacteur/gererRedacteur.html.twig',
-                ['redacteurs' => $repository->findAll(),
-                ]);
-        }
-        return $this->render('redacteur/createRedacteur.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('redacteur/createRedacteur.html.twig',[
+            'users'=>$userRepository->findAll(),
         ]);
     }
 
@@ -46,7 +35,6 @@ class RedacteurController extends AbstractController
      */
     public function gererArticle(RedacteurRepository $repository)
     {
-        $redacteur = new Redacteur();
         return $this->render('redacteur/gererRedacteur.html.twig',
             ['redacteurs' => $repository->findAll(),
             ]);
