@@ -6,22 +6,22 @@
     {# generer les rubriques en cards #}
     <div class="row">
         {% for rubrique in rubriques %}
-            <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                <div class="card border-warning mb-3 mx-auto">
-                    <div class="card-body text-center">
-                        <h4 class="card-title border-warning "><strong>{{ rubrique.nom }}</strong></h4>
-                        <p><small><i>
-                                    <bold>
-                                        Wolfit
-                                    </bold>
-                                </i></small></p>
-                        <button type="button" class="btn btn-primary btn-lg btn-block text-dark mt-3 "><a
-                                    class="text-reset text-decoration-none"
-                                    href="{{ path('listearticles', {id : rubrique.id}) }}">voir en
-                                détail</a></button>
+                <div class="col-md-6 col-lg-4 col-xl-3 mh-100">
+                    <div class="card border-warning mb-3 mx-auto ">
+                        <div class="card-body text-center">
+                            <h4 class="card-text border-warning"><strong>{{ rubrique.nom }}</strong></h4>
+                            <p><small><i>
+                                        <bold>
+                                            Wolfit
+                                        </bold>
+                                    </i></small></p>
+                            <button type="button" class="btn btn-primary btn-lg btn-block text-dark mt-3 "><a
+                                        class="text-reset text-decoration-none"
+                                        href="{{ path('listearticles', {id : rubrique.id}) }}">voir en
+                                    détail</a></button>
+                        </div>
                     </div>
                 </div>
-            </div>
         {% endfor %}
     </div>
 {% endblock %}
