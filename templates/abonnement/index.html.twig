@@ -1,41 +1,41 @@
+{#début refactor#}
 {% extends 'base.html.twig' %}
 
-{% block title %}Abonnement index{% endblock %}
+{% block title %}Abonnements{% endblock %}
 
 {% block body %}
-    <h1>Abonnement index</h1>
-
-    <table class="table">
-        <thead>
+    {{ include('menuAdmin.html.twig') }}
+    <div class="container-fluid">
+        <table class="container-fluid bg-dark">
+            <hr class="my-8">
             <tr>
-                <th>Id</th>
-                <th>Prix</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>actions</th>
+                <th>
+                    Liste des offres :
+                    <hr class="my-8">
+                </th>
             </tr>
-        </thead>
-        <tbody>
-        {% for abonnement in abonnements %}
-            <tr>
-                <td>{{ abonnement.id }}</td>
-                <td>{{ abonnement.prix }}</td>
-                <td>{{ abonnement.nom }}</td>
-                <td>{{ abonnement.description }}</td>
-                <td>{{ abonnement.image }}</td>
-                <td>
-                    <a href="{{ path('abonnement_show', {'id': abonnement.id}) }}">Montrer</a>
-                    <a href="{{ path('abonnement_edit', {'id': abonnement.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('abonnement_new') }}">Create new</a>
+            <div>
+                <a class="btn btn-info m-3" href="{{ path('abonnement_new',) }}">Créer une nouvelle offre</a>
+            </div>
+            {% for abonnement in abonnements %}
+                <tr>
+                    <td class="text-center">
+                        {{ abonnement.nom }}
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-info btn-sm" href="{{ path('abonnement_show',{ 'id': abonnement.id}) }}">Voir en détail</a>
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-warning btn-sm" href="{{ path('abonnement_edit',{ 'id': abonnement.id}) }}">Modifier</a>
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-danger btn-sm" href="{{ path('abonnement_delete',{ 'id': abonnement.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
+{#fin refactor#}

@@ -12,13 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RubriqueController extends AbstractController
 {
-    /**
-     * @Route("/rubrique", name="rubrique")
-     */
-    public function index()
-    {
-        return $this->render('rubrique/index.html.twig');
-    }
 
     /**
      * @Route("/creerrubrique", name="creerRubrique")

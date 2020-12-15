@@ -21,7 +21,7 @@
                 <td>{{ abonnement.nom }}</td>
                 <td>{{ abonnement.description }}</td>
                 <td>
-                    <a href="{{ path('abonnement_info', {'id': abonnement.id}) }}">Montrer</a>
+                    <a class="btn btn-info btn-sm" href="{{ path('abonnement_info', {'id': abonnement.id}) }}">Voir en détail</a>
                 </td>
             </tr>
         {% else %}

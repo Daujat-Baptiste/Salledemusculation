@@ -15,13 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/article", name="article")
-     */
-    public function index()
-    {
-        return $this->render('article/index.html.twig');
-    }
 
     /**
      * @Route("/creerarticle", name="create_article")
