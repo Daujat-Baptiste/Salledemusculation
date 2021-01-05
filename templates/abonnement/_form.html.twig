@@ -1,6 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
 
-<a class="btn btn-success btn-sm" href="{{ button_label|default('Save') }}"> Sauvegarder </a>
+<button class="btn btn-success btn-sm"> {{ button_label|default('Save') }} </button>
 
 {{ form_end(form) }}
