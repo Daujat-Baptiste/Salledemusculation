@@ -6,6 +6,7 @@ use App\Entity\Abonnement;
 use App\Form\AbonnementType;
 use App\Repository\AbonnementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,6 +28,8 @@ class AbonnementController extends AbstractController
 
     /**
      * @Route("/new", name="abonnement_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -34,12 +37,31 @@ class AbonnementController extends AbstractController
         $form = $this->createForm(AbonnementType::class, $abonnement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($abonnement);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('abonnement_index');
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $image = $form->get('image')->getData();
+
+            if ($image) {
+                $newFilename = uniqid() . '.' . $image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('abonnement_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $exception) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de la récupération de l\'image');
+                }
+
+                $abonnement->setImage($newFilename);
+
+                $entityManager = $this->getDoctrine()->getManager();
+
+                $entityManager->persist($abonnement);
+                $entityManager->flush();
+            }
+
         }
 
         return $this->render('abonnement/new.html.twig', [

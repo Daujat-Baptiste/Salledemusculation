@@ -3,32 +3,32 @@
 {% block title %}Abonnements{% endblock %}
 
 {% block body %}
+    {#debut rework#}
     <h1>Abonnements</h1>
+    {% for abonnement in abonnements %}
+    <div class="card mb-3">
+        <h3 class="card-header">{{ abonnement.nom }}</h3>
+        <div class="d-flex">
+            <img class="card-img-top" src={{ asset('images/abonnement/' ~ abonnement.image) }}>
+        </div>
+        </svg>
+        <div class="card-body">
+            <p class="card-text">{{ abonnement.prix}}€</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ abonnement.description }}</li>
+        </ul>
+        <div class="card-footer text-muted">
+            Wolfit
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
+    {% else %}
         <tr>
-            <th>Prix</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th></th>
+            <td colspan="6">il n'y a pas d'abonnements disponibles</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for abonnement in abonnements %}
-            <tr>
-                <td>{{ abonnement.prix }}</td>
-                <td>{{ abonnement.nom }}</td>
-                <td>{{ abonnement.description }}</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="{{ path('abonnement_info', {'id': abonnement.id}) }}">Voir en détail</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endfor %}
 {% endblock %}
+
+    {#fin rework#}
+
