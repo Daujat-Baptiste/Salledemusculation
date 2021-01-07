@@ -8,16 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ abonnement.id }}</td>
+                <th>Nom</th>
+                <td>{{ abonnement.nom }}</td>
             </tr>
             <tr>
                 <th>Prix</th>
                 <td>{{ abonnement.prix }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ abonnement.nom }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -25,7 +21,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ abonnement.image }}</td>
+                <td><img src={{ asset('images/abonnement/' ~ abonnement.image) }}></td>
             </tr>
         </tbody>
     </table>

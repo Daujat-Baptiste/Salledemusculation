@@ -57,7 +57,7 @@ class ArticleController extends AbstractController
         $article = $repository->find($id);
         $accueil = $accueilRepository->findBy(['actif' => 'actif']);
 
-        if ($accueil[0]->getArticle()->getId() == $id || !empty($accueil)) {
+        if ($accueil[0]->getArticle()->getId() == $id) {
             $this->addFlash('danger', 'L\'article ne peut pas être supprimé car il est affiché sur l\'accueil');
         } else {
             $entityManager = $this->getDoctrine()->getManager();

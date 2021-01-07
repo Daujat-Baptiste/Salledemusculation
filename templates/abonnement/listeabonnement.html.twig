@@ -3,25 +3,24 @@
 {% block title %}Wolfit-Abonnements{% endblock %}
 
 {% block body %}
-    {#debut rework#}
     <h1>Abonnements</h1>
     {% for abonnement in abonnements %}
-    <div class="card mb-3">
-        <h3 class="card-header">{{ abonnement.nom }}</h3>
-        <div class="d-flex">
-            <img class="card-img-top" src={{ asset('images/abonnement/' ~ abonnement.image) }}>
+        <div class="card mb-3">
+            <h3 class="card-header">{{ abonnement.nom }}</h3>
+            <div class="d-flex">
+                <img class="card-img-top" src={{ asset('images/abonnement/' ~ abonnement.image) }}>
+            </div>
+            </svg>
+            <div class="card-body">
+                <p class="card-text">{{ abonnement.prix }}€</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ abonnement.description }}</li>
+            </ul>
+            <div class="card-footer text-muted">
+                Wolfit
+            </div>
         </div>
-        </svg>
-        <div class="card-body">
-            <p class="card-text">{{ abonnement.prix}}€</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ abonnement.description }}</li>
-        </ul>
-        <div class="card-footer text-muted">
-            Wolfit
-        </div>
-    </div>
 
     {% else %}
         <tr>
@@ -29,6 +28,4 @@
         </tr>
     {% endfor %}
 {% endblock %}
-
-    {#fin rework#}
 
