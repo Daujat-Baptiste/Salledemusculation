@@ -41,18 +41,9 @@ class ContactController extends AbstractController
      */
     public function listecontact(ContactRepository $contactRepository, Request $request): Response
     {
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($contact);
-            $entityManager->flush();
-        }
         return $this->render('contact/contactAdmin.html.twig', [
             'contacts' => $contactRepository->findAll(),
-            'form'=>$form->createView(),
         ]);
     }
 }

@@ -7,8 +7,12 @@
     <h1 class="h3 mb-3 font-weight-normal">Contact</h1>
 
     <div class="container">
+
         {% for contact in contacts %}
-            {{ include('contact/_formContactBack.html.twig') }}
+            <div class="row">
+                {{ contact.email }}
+                {{ contact.contenu }}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

@@ -49,10 +49,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/profil", name="profil", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show()
     {
+        dd($_ENV["mail"]);
+        $user = $_ENV[""];
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
