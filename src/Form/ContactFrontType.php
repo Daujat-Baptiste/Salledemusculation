@@ -17,7 +17,7 @@ class ContactFrontType extends AbstractType
     {
         $builder
             ->add('email',EmailType::class)
-            ->add('Contenu', TextareaType::class)
+            ->add('Contenu', TextareaType::class, ['attr' => ['class' => 'textareaForm']])
         ;
     }
 
