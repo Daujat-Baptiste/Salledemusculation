@@ -21,7 +21,9 @@ class UserfrontType extends AbstractType
                 ['Homme' => true,
                     'Femme' => false,
                 ]])
+            ->add('numtel')
             ->add('newsletter',CheckboxType::class)
+
         ;
     }
 
