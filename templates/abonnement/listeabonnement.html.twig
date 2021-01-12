@@ -10,9 +10,15 @@
             <div class="d-flex">
                 <img class="card-img-top" src={{ asset('images/abonnement/' ~ abonnement.image) }}>
             </div>
-            </svg>
             <div class="card-body">
                 <p class="card-text">{{ abonnement.prix }}€</p>
+                {{ form_start(form) }}
+                <br><br>
+                <div class="text-center">
+                    <button class="btn btn-lg btn-primary" type="envoyer">
+                        Souscrire
+                    </button>
+                    {{ form_end(form) }}
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">{{ abonnement.description }}</li>

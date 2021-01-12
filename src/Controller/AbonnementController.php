@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Abonnement;
 use App\Form\AbonnementType;
+use App\Form\SouscrireType;
 use App\Repository\AbonnementRepository;
+use App\Repository\SouscrireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +21,19 @@ class AbonnementController extends AbstractController
     /**
      * @Route("/", name="abonnement_index", methods={"GET"})
      */
-    public function index(AbonnementRepository $abonnementRepository): Response
+    public function index(AbonnementRepository $abonnementRepository,SouscrireRepository $souscrireRepository,Request $request): Response
     {
-        return $this->render('abonnement/index.html.twig', [
+        $form = $this->createForm(SouscrireType::class, $souscrireRepository);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('abonnement_index');
+        }
+        return $this->render('abonnement/listeabonnement.html.twig', [
             'abonnements' => $abonnementRepository->findAll(),
+            'form'=> $form->createView(),
         ]);
     }
 
