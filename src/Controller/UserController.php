@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserfrontType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -48,17 +50,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil", name="profil", methods={"GET"})
-     */
-    public function show()
-    {
-        dd($_ENV["mail"]);
-        $user = $_ENV[""];
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
+
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
@@ -92,5 +84,31 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+    /**
+     * @Route("/profil/edit/{id}", name="front_user_edit", methods={"GET","POST"})
+     */
+    public function editFront(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserfrontType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('profil');
+        }
+
+        return $this->render('user/front/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/profil", name="profil", methods={"GET"})
+     */
+    public function show()
+    {
+        return $this->render('user/front/frontuser.html.twig');
     }
 }
