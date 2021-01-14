@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Abonnement;
+use App\Entity\Souscrire;
+use App\Entity\User;
 use App\Form\AbonnementType;
 use App\Form\SouscrireType;
 use App\Repository\AbonnementRepository;
 use App\Repository\SouscrireRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,21 +23,52 @@ class AbonnementController extends AbstractController
 {
     /**
      * @Route("/", name="abonnement_index", methods={"GET"})
+     *
+     * @param AbonnementRepository $abonnementRepository
+     * @return Response
      */
-    public function index(AbonnementRepository $abonnementRepository,SouscrireRepository $souscrireRepository,Request $request): Response
+    public function index(AbonnementRepository $abonnementRepository): Response
     {
-        $form = $this->createForm(SouscrireType::class, $souscrireRepository);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('abonnement_index');
-        }
         return $this->render('abonnement/listeabonnement.html.twig', [
             'abonnements' => $abonnementRepository->findAll(),
-            'form'=> $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/all", name="abonnement_base", methods={"GET"})
+     * @param AbonnementRepository $abonnementRepository
+     * @return Response
+     */
+    public function indexAb(AbonnementRepository $abonnementRepository): Response
+    {
+        return $this->render('abonnement/index.html.twig', [
+            'abonnements' => $abonnementRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/subscribe/{user}/{abonnement}", name="abonnement_subscribe", methods={"GET"})
+     *
+     * @return Response
+     * @param User $user
+     * @param Abonnement $abonnement
+     * @return Response
+     */
+    public function subscribe(User $user, Abonnement $abonnement): Response
+    {
+        $subscribe = new Souscrire();
+        $manager = $this->getDoctrine()->getManager();
+
+        $subscribe->setUser($user)
+            ->setAbonnement($abonnement);
+
+        $manager->persist($subscribe);
+
+        $manager->flush();
+
+        return new RedirectResponse(
+            $this->generateUrl('abonnement_index')
+        );
     }
 
     /**
@@ -134,7 +168,6 @@ class AbonnementController extends AbstractController
             'abonnement' => $abonnement,
         ]);
     }
-
 
 
 }

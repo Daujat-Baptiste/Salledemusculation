@@ -9,7 +9,7 @@
                     <a class="nav-link text-light" href="{{ path('contact_admin') }}">Contacts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ path('abonnement_index') }}">Abonnements</a>
+                    <a class="nav-link text-light" href="{{ path('abonnement_base') }}">Abonnements</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{{ path('gererRubrique') }}">Rubriques</a>
@@ -23,3 +23,5 @@
             </ul>
         </div>
     </nav>
+
+    {{ if is_granted('ROLE_ADMIN') }}

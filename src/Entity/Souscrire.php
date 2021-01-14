@@ -12,25 +12,15 @@ class Souscrire
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="souscrires")
      */
     private $User;
 
     /**
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Abonnement::class, inversedBy="souscrires")
      */
     private $Abonnement;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getUser(): ?User
     {
