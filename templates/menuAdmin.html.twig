@@ -2,6 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item active">
                     <a class="nav-link text-light" href="#">Mails<span class="sr-only">(current)</span></a>
                 </li>
@@ -12,16 +13,16 @@
                     <a class="nav-link text-light" href="{{ path('abonnement_base') }}">Abonnements</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ path('gerer_redacteur') }}">Rédacteurs</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
                     <a class="nav-link text-light" href="{{ path('gererRubrique') }}">Rubriques</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{{ path('gerer_article') }}">Articles</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ path('gerer_redacteur') }}">Rédacteurs</a>
-                </li>
             </ul>
         </div>
     </nav>
 
-    {{ if is_granted('ROLE_ADMIN') }}
