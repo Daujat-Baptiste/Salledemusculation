@@ -20,10 +20,6 @@ class ArticleType extends AbstractType
         $builder
             ->add('nom',TextType::class,['label'=>'Nom'])
             ->add('contenu',TextareaType::class,['label'=>'Contenu'])
-            ->add('redacteur',EntityType::class,[
-                'class'=>Redacteur::class,
-                'choice_label'=>'pseudo'
-            ])
             ->add('idRubrique',EntityType::class,[
                 'class'=>Rubrique::class,
                 'choice_label'=>'nom'

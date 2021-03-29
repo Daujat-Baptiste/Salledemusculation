@@ -12,18 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RubriqueController extends AbstractController
 {
-    /**
-     * @Route("/rubrique", name="rubrique")
-     */
-    public function index()
-    {
-        return $this->render('rubrique/index.html.twig');
-    }
 
     /**
      * @Route("/creerrubrique", name="creerRubrique")
      */
-    public function creerRubrique(Request $request,RubriqueRepository $repository)
+    public function creerRubrique(Request $request, RubriqueRepository $repository)
     {
         $rubrique = new Rubrique();
 
@@ -33,7 +26,7 @@ class RubriqueController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rubrique);
             $entityManager->flush();
-            $repoRubriqueAll=$repository->findAll();
+            $repoRubriqueAll = $repository->findAll();
             return $this->render('rubrique/gererRubrique.html.twig',
                 ['rubriques' => $repoRubriqueAll,
                 ]);
@@ -62,12 +55,21 @@ class RubriqueController extends AbstractController
     /**
      * @Route("/gererrubrique/delete/{id}", name="deleteRubrique")
      */
-    public function deleteRubrique($id,RubriqueRepository $repository)
+    public function deleteRubrique($id, RubriqueRepository $repository)
     {
         $rubrique = $repository->find($id);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($rubrique);
-        $entityManager->flush();
+        if (empty($rubrique)) {
+            $this->addFlash('danger', 'La rubrique n\'existe pas');
+        } else {
+            if ($rubrique->getArticles()->isEmpty()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($rubrique);
+                $entityManager->flush();
+                $this->addFlash('success', 'La rubrique a été supprimé');
+            } else {
+                $this->addFlash('danger', 'La rubrique ne peut pas être supprimée car elle contient un ou plusieurs article(s)');
+            }
+        }
         $repoRubriqueAll = $repository->findAll();
         return $this->render('rubrique/gererRubrique.html.twig',
             ['rubriques' => $repoRubriqueAll,
@@ -77,7 +79,7 @@ class RubriqueController extends AbstractController
     /**
      * @Route("/gererrubrique/edit/{id}", name="editRubrique")
      */
-    public function editRubrique($id,RubriqueRepository $repository,Request $request)
+    public function editRubrique($id, RubriqueRepository $repository, Request $request)
     {
         $rubrique = $repository->find($id);
         $form = $this->createForm(RubriqueType::class, $rubrique);
@@ -104,17 +106,17 @@ class RubriqueController extends AbstractController
     {
         $rubriques = $repository->findAll();
         return $this->render('rubrique/listerubriques.html.twig',
-        ["rubriques"=>$rubriques]);
+            ["rubriques" => $rubriques]);
     }
 
     /**
      * @Route("/listearticles/{id}", name="listearticles")
      */
-    public function listearticles(ArticleRepository $repository,$id)
+    public function listearticles(ArticleRepository $repository, $id)
     {
         $articles = $repository->findBy(array('id_rubrique' => $id));
         return $this->render('rubrique/listearticles.html.twig',
-            ["articles"=>$articles]);
+            ["articles" => $articles]);
     }
 
 }

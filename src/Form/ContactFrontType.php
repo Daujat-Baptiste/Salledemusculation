@@ -2,28 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Redacteur;
+use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RedacteurType extends AbstractType
+class ContactFrontType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo',TextType::class,['label'=>'Prénom'])
-            ->add('mdp',TextType::class,['label'=>'Mot de passe'])
-            ->add('save',SubmitType::class,['label'=>'Valider'])
+            ->add('email',EmailType::class)
+            ->add('Contenu', TextareaType::class, ['attr' => ['class' => 'textareaForm']])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Redacteur::class,
+            'data_class' => Contact::class,
         ]);
     }
 }

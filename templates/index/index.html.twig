@@ -1,50 +1,75 @@
 
-{#début test#}
+{#début accueil#}
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Wolfit-Accueil{% endblock %}
 {% block body %}
+    {#début caroussel#}
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="jumbotron jumbotron-fluid">
-                <h1 class="display-3 text-warning">WOLFIT</h1>
-                <p class="lead ml-2"> Toi aussi deviens l'Alpha ! </p>
+                <h1 class="display-3 text-warning pl-2">WOLFIT</h1>
+                <p class="lead pl-2"> Toi aussi deviens l'Alpha ! </p>
                 <hr class="my-4">
-                <p>Tu trouveras toutes les informations nécessaires sur les salles Wolfit</p>
+                <p class="pl-3" >Ici tu trouveras toutes les infos nécessaires sur les salles Wolfit</p>
             </div>
         </div>
         <div class="carousel-item">
             <div class="jumbotron jumbotron-fluid">
-                <h1 class="display-3 text-warning">LES RUBRIQUES</h1>
-                <p class="lead ml-2"> Tu souhaites tout savoir sur notre actu et avoir acces à nos consiel entrainement et nutrition ? </p>
+                <h1 class="display-3 text-warning pl-2">LES RUBRIQUES</h1>
+                <p class="lead pl-2"> Tu souhaites tout savoir sur notre actu et avoir acces à nos conseils entrainement et nutrition ? </p>
                 <hr class="my-4">
-                <p>Tu trouvera tout ce qu'il te faut dans nos Rubriques</p>
+                <p class="pl-3" >Tu trouveras tout ce qu'il te faut dans nos Rubriques</p>
             </div>
         </div>
         <div class="carousel-item">
             <div class="jumbotron jumbotron-fluid">
-                <h1 class="display-3 text-warning">CONTACT</h1>
-                <p class="lead ml-2"> Tu souhaites nous contacter, connaitre les horraires d'ouvertures ou savoir ou se trouvent nos salles ? </p>
+                <h1 class="display-3 text-warning pl-2">CONTACT</h1>
+                <p class="lead pl-2"> Tu souhaites nous contacter, connaitre les horraires d'ouvertures ou savoir ou se trouvent nos salles ? </p>
                 <hr class="my-4">
-                <p>Tu trouveras toutes ces infos dans contact au bas de ta page !</p>
+                <p class="pl-3" >Tu trouveras toutes ces infos dans contact au bas de ta page !</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-3 text-warning pl-2">ABONNEMENTS</h1>
+                <p class="lead pl-2"> Consulte et souscris à nos abonnements ! </p>
+                <hr class="my-4">
+                <p class="pl-3" >Tu trouveras toutes ces infos dans Abonnements en haut de ta page !</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="jumbotron jumbotron-fluid">
+                <h1 class="display-3 text-warning pl-2">PLANNING</h1>
+                <p class="lead pl-2"> Consulte le planning des cours ! </p>
+                <hr class="my-4">
+                <p class="pl-3" >Tu trouveras toutes ces infos dans Planning au bas de ta page !</p>
             </div>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <a class="carousel-control-prev mt-5" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <a class="carousel-control-next mt-5" href="#carouselExampleIndicators" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
+    {#fin caroussel#}
+
+    {#début offres#}
+    {#fin offres#}
+
+    {#début article#}
 {% for a in article %}
     <h1>
         <bold>{{ a.article.nom }}</bold>
@@ -55,4 +80,5 @@
 {% endfor %}
 
 {% endblock %}
-{#fin test#}
+{#fin article#}
+{#fin accueil#}

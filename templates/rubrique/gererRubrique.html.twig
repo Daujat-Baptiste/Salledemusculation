@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rubriques{% endblock %}
+{% block title %}Wolfit-Rubriques{% endblock %}
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
@@ -13,9 +13,12 @@
                     <hr class="my-8">
                 </th>
             </tr>
+            <div>
+                <a class="btn btn-info m-3" href="{{ path('creerRubrique')}}">Créer une nouvelle rubrique</a>
+            </div>
             {% for rubrique in rubriques %}
                 <tr>
-                    <td class="text-center">
+                    <td class=" pl-5 pr-5 text-center text-break">
                         {{ rubrique.nom }}
                         <hr class="my-4">
                     </td>

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wolfit-Abonnements{% endblock %}
+
+{% block body %}
+    <h1>Abonnements</h1>
+    {% for abonnement in abonnements %}
+        <div class="card mb-3">
+            <h3 class="card-header">{{ abonnement.nom }}</h3>
+            <div class="d-flex">
+                <img class="card-img-top" src={{ asset('images/abonnement/' ~ abonnement.image) }}>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ abonnement.prix }}€</p>
+                <br><br>
+                <div class="text-center">
+                    <a class="btn btn-lg btn-primary" href="{{ path('abonnement_subscribe', {'user': app.user.id, 'abonnement': abonnement.id}) }}">
+                        Souscrire
+                    </a>
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ abonnement.description }}</li>
+            </ul>
+            <div class="card-footer text-muted">
+                Wolfit
+            </div>
+        </div>
+
+    {% else %}
+        <tr>
+            <td colspan="6">il n'y a pas d'abonnements disponibles</td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+

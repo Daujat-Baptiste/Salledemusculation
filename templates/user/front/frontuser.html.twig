@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wolfit-Mon-compte{% endblock %}
+
+{% block body %}
+    <h1>Mon Compte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Email</th>
+                <td>{{ app.user.email}}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ app.user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ app.user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ app.user.sexe ? 'Homme' : 'Femme' }}</td>
+            </tr>
+            <tr>
+                <th>Newsletter</th>
+                <td>{{ app.user.newsletter ? 'Abonné(e)' : 'Pas abonné(e)' }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ app.user.numtel }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-lg btn-primary btn-sm" href="{{ path('front_user_edit', {'id': app.user.id}) }}">Modifier</a>
+    <a class="btn btn-lg btn-primary btn-sm" href="">Mot de passe oublié ?</a>
+{% endblock %}
