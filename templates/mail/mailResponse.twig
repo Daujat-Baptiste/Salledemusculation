@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wolfit-Contact{% endblock %}
+
+{% block body %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Répondre</h1>
+
+    <div class="container">
+        <div>
+            Expéditeur du mail: {{ mail.email }}
+        </div>
+        <div>
+        Contenu du mail: {{ mail.contenu }}
+        </div>
+        <br>
+        <div class="text-center">
+            {{ include('mail/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

@@ -7,19 +7,9 @@
     <h1 class="h3 mb-3 font-weight-normal">Contact</h1>
 
     <div class="container">
-<<<<<<< HEAD
-       {{ form(form) }}
-=======
-        {{ form_start(form) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.Contenu) }}
-        <br><br>
+
         <div class="text-center">
-            <button class="btn btn-lg btn-primary" type="envoyer">
-                Envoyer
-            </button>
-            {{ form_end(form) }}
->>>>>>> 0e02568d5387ab7e53a34316600dd9747b9466f5
+            {{ include('mail/_form.html.twig') }}
             <br><br>
             <p><br>16 Avenue Denfert Rochereau <br> 07 83 51 56 19 </p>
         </div>

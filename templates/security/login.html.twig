@@ -19,7 +19,7 @@
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
-
+    <a class="btn btn-lg btn-primary btn-sm" href={{ path('app_forgot_password_request') }}>Mot de passe oublié ?</a>
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >

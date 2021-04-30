@@ -14,8 +14,6 @@ class Mail1Type extends AbstractType
         $builder
             ->add('destinataire')
             ->add('contenu')
-            ->add('expediteur')
-            ->add('subject')
         ;
     }
 

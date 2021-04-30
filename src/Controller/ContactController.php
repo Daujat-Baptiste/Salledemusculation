@@ -2,24 +2,21 @@
 
 namespace App\Controller;
 
-<<<<<<< HEAD
+
 use App\Entity\Mail;
+use App\Form\Mail1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Form\MailType;
-=======
 use App\Entity\Contact;
 use App\Form\ContactFrontType;
-use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
->>>>>>> 0e02568d5387ab7e53a34316600dd9747b9466f5
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\HttpFoundation\Request;
 
 class ContactController extends AbstractController
 {
@@ -32,10 +29,7 @@ class ContactController extends AbstractController
         $this->security = $security;
     }
 
-    /**
-     * @Route("/contact", name="contact", methods={"GET","POST"})
-     */
-<<<<<<< HEAD
+
     public function contact(Request $request, EntityManagerInterface $entityManager)
     {
         $mail = new Mail();
@@ -49,7 +43,7 @@ class ContactController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('administration');
         } else {
-            return $this->render('contact/index.html.twig',
+            return $this->render('contact/contactAdmin.html.twig',
                 ['form' => $form->createView(),
                 ]);
         }
@@ -68,8 +62,12 @@ class ContactController extends AbstractController
             //->text('Sending emails is fun again!')
             ->html($mail->getContenu());
         $this->mailerInterface->send($email);
-=======
-    public function contact(Request $request): Response
+    }
+
+    /**
+     * @Route("/contact", name="contact", methods={"GET","POST"})
+     */
+    public function contactFront(Request $request): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactFrontType::class, $contact);
@@ -77,6 +75,7 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $contact->setLu(false);
             $entityManager->persist($contact);
             $entityManager->flush();
 
@@ -98,6 +97,47 @@ class ContactController extends AbstractController
         return $this->render('contact/contactAdmin.html.twig', [
             'contacts' => $contactRepository->findAll(),
         ]);
->>>>>>> 0e02568d5387ab7e53a34316600dd9747b9466f5
+    }
+
+    /**
+     * @Route("/admin/mailResponse/{id}", name="mailResponse", methods={"GET", "POST"})
+     */
+    public function repondreAUnContact($id, ContactRepository $contactRepository, Request $request)
+    {
+        $mail = new Mail();
+        $form = $this->createForm(Mail1Type::class, $mail);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager();
+            $mail->setDestinataire($contactRepository->find($id)->getEmail());
+            $mail->setSubject("Réponse à votre demande");
+            $this->sendMail($mail);
+            $contact =  $contactRepository->find($id);
+            $contact->setLu(1);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contact);
+            $entityManager->flush();
+            return $this->redirectToRoute('contact_admin');
+        } else {
+            return $this->render('mail/mailResponse.twig', [
+                'mail' => $contactRepository->find($id),
+                'form' => $form->createView()
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/admin/contact/{id}", name="contact_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Contact $contact): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($contact);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('contact_admin');
     }
 }
+
