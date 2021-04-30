@@ -6,28 +6,43 @@
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
     <div class="container-fluid">
+        Liste des utilisateurs :
         <table class="container-fluid bg-dark">
             <hr class="my-8">
-            <tr>
+            <tr class="text-center">
                 <th>
-                    Liste des rédacteurs :
+                    Prénom
+                    <hr class="my-8">
+                </th>
+                <th>
+                    Nom
+                    <hr class="my-8">
+                </th>
+                <th>
+                    Rôles
+                    <hr class="my-8">
+                </th>
+                <th>
+                    Actions
                     <hr class="my-8">
                 </th>
             </tr>
-            <div>
-                <a class="btn btn-info m-3 " href="{{ path('create_redacteur',) }}">Créer un nouveau redacteur</a>
-            </div>
-            {% for redacteur in redacteurs %}
+            {% for user in utilisateurs %}
                 <tr>
-                    <td class="text-center">
-                        {{ redacteur.pseudo }}
-                        <hr class="my-4">
+                    <td class="text-center align-baseline">
+
                     </td>
                     <td class="text-center align-baseline">
-                        <a class="btn btn-warning btn-sm" href="{{ path('editRedacteur',{ 'id': redacteur.id}) }}">Modifier</a>
+
                     </td>
                     <td class="text-center align-baseline">
-                        <a class="btn btn-danger btn-sm" href="{{ path('deleteRedacteur',{ 'id': redacteur.id}) }}">Supprimer</a>
+
+                    </td>
+                    <td class="text-center align-baseline">
+
+                    </td>
+                    <td class="text-center align-baseline">
+
                     </td>
                 </tr>
             {% endfor %}

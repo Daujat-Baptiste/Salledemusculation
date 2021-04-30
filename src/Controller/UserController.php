@@ -12,13 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/user")
- */
+
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/admin/user/gererUtilisateur", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -28,7 +26,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/admin/user/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -53,16 +51,14 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/admin/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('user_index');
         }
 
@@ -73,7 +69,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/admin/user/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -86,7 +82,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
     /**
-     * @Route("/profil/edit/{id}", name="front_user_edit", methods={"GET","POST"})
+     * @Route("/profile/edit/{id}", name="front_user_edit", methods={"GET","POST"})
      */
     public function editFront(Request $request, User $user): Response
     {
@@ -105,7 +101,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/profil", name="profil", methods={"GET"})
+     * @Route("/profile", name="profil", methods={"GET"})
      */
     public function show()
     {
