@@ -31,7 +31,7 @@
                         <a class="btn btn-warning btn-sm" href="{{ path('abonnement_edit',{ 'id': abonnement.id}) }}">Modifier</a>
                     </td>
                     <td class="text-center align-baseline">
-                        <a class="btn btn-danger btn-sm" href="{{ path('abonnement_delete',{ 'id': abonnement.id}) }}">Supprimer</a>
+                        {{ include('abonnement/_delete_form.html.twig') }}
                     </td>
                 </tr>
             {% endfor %}

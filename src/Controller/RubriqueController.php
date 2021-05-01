@@ -14,7 +14,7 @@ class RubriqueController extends AbstractController
 {
 
     /**
-     * @Route("/creerrubrique", name="creerRubrique")
+     * @Route("/redactor/creerrubrique", name="creerRubrique")
      */
     public function creerRubrique(Request $request, RubriqueRepository $repository)
     {
@@ -38,7 +38,7 @@ class RubriqueController extends AbstractController
 
 
     /**
-     * @Route("/gererrubrique", name="gererRubrique")
+     * @Route("/redactor/gererrubrique", name="gererRubrique")
      */
     public function gererRubrique(RubriqueRepository $repository, Request $request)
     {
@@ -53,7 +53,7 @@ class RubriqueController extends AbstractController
     }
 
     /**
-     * @Route("/gererrubrique/delete/{id}", name="deleteRubrique")
+     * @Route("/redactor/gererrubrique/delete/{id}", name="deleteRubrique")
      */
     public function deleteRubrique($id, RubriqueRepository $repository)
     {
@@ -77,7 +77,7 @@ class RubriqueController extends AbstractController
     }
 
     /**
-     * @Route("/gererrubrique/edit/{id}", name="editRubrique")
+     * @Route("/redactor/gererrubrique/edit/{id}", name="editRubrique")
      */
     public function editRubrique($id, RubriqueRepository $repository, Request $request)
     {

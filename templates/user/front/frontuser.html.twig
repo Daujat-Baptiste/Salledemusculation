@@ -20,6 +20,10 @@
                 <td>{{ app.user.nom }}</td>
             </tr>
             <tr>
+                <th>Mot de passe</th>
+                <td>&bull;&bull;&bull;&bull;&bull;&bull;</td>
+            </tr>
+            <tr>
                 <th>Sexe</th>
                 <td>{{ app.user.sexe ? 'Homme' : 'Femme' }}</td>
             </tr>
@@ -33,5 +37,6 @@
             </tr>
         </tbody>
     </table>
+    <a class="btn btn-lg btn-primary btn-sm" href="{{ path('edit_pass_user') }}">Modifier mot de passe</a>
     <a class="btn btn-lg btn-primary btn-sm" href="{{ path('front_user_edit', {'id': app.user.id}) }}">Modifier</a>
 {% endblock %}

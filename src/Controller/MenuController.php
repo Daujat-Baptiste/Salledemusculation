@@ -9,14 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MenuController extends AbstractController
 {
-    public function index(RubriqueRepository $repository)
-    {
-        $rubriques = $repository->findAll();
-        return $this->render('menu.html.twig', [
-            'rubriques' => $rubriques,
-        ]);
-    }
-
     /**
      * @Route("/abonnements", name="listeabonnements", methods={"GET"})
      */

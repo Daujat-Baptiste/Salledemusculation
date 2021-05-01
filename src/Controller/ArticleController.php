@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("/creerarticle", name="create_article")
+     * @Route("/redactor/creerarticle", name="create_article")
      */
     public function create(Request $request, RubriqueRepository $repository, ArticleRepository $repositoryArt)
     {
@@ -40,7 +40,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/gererarticle", name="gerer_article")
+     * @Route("/redactor/gererarticle", name="gerer_article")
      */
     public function gererArticle(ArticleRepository $repository)
     {
@@ -50,7 +50,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/gererarticle/delete/{id}", name="deleteArticle")
+     * @Route("/redactor/gererarticle/delete/{id}", name="deleteArticle")
      */
     public function deleteArticle($id, ArticleRepository $repository, AccueilRepository $accueilRepository)
     {
@@ -73,7 +73,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/gererarticle/edit/{id}", name="editArticle")
+     * @Route("/redactor/gererarticle/edit/{id}", name="editArticle")
      */
     public function editArticle($id, ArticleRepository $repository, Request $request)
     {
@@ -102,7 +102,7 @@ class ArticleController extends AbstractController
     {
         if (empty($repository->find($id))) {
             return $this->redirectToRoute("listerubriques");
-        }else{
+        } else {
             return $this->render('article/articleinfo.html.twig',
                 ['article' => $repository->find($id),
                 ]);
@@ -110,30 +110,30 @@ class ArticleController extends AbstractController
     }
 
 
-/**
- * @Route("/accueil/{id}", name="send_accueil")
- */
-public
-function send_accueil(ArticleRepository $articleRepository, $id, AccueilRepository $accueilRepository)
-{
-    $article = $articleRepository->find($id);
-    $accueil = $accueilRepository->findBy(['actif' => 'actif']);
+    /**
+     * @Route("/accueil/{id}", name="send_accueil")
+     */
+    public
+    function send_accueil(ArticleRepository $articleRepository, $id, AccueilRepository $accueilRepository)
+    {
+        $article = $articleRepository->find($id);
+        $accueil = $accueilRepository->findBy(['actif' => 'actif']);
 
-    if ($accueil == null) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $accueil = new Accueil();
-        $accueil->setActif('actif');
-        $accueil->setArticle($article);
-        $entityManager->persist($accueil);
-        $entityManager->flush();
-    } else {
-        $accueil[0]->setArticle($article);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+        if ($accueil == null) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $accueil = new Accueil();
+            $accueil->setActif('actif');
+            $accueil->setArticle($article);
+            $entityManager->persist($accueil);
+            $entityManager->flush();
+        } else {
+            $accueil[0]->setArticle($article);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+        }
+        return $this->render('article/gererArticle.html.twig', [
+            'articles' => $articleRepository->findAll()
+        ]);
     }
-    return $this->render('article/gererArticle.html.twig', [
-        'articles' => $articleRepository->findAll()
-    ]);
-}
 
 }

@@ -46,30 +46,6 @@ class AbonnementController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/subscribe/{user}/{abonnement}", name="abonnement_subscribe", methods={"GET"})
-     *
-     * @return Response
-     * @param User $user
-     * @param Abonnement $abonnement
-     * @return Response
-     */
-    public function subscribe(User $user, Abonnement $abonnement): Response
-    {
-        $subscribe = new Souscrire();
-        $manager = $this->getDoctrine()->getManager();
-
-        $subscribe->setUser($user)
-            ->setAbonnement($abonnement);
-
-        $manager->persist($subscribe);
-
-        $manager->flush();
-
-        return new RedirectResponse(
-            $this->generateUrl('abonnement_index')
-        );
-    }
 
     /**
      * @Route("/new", name="abonnement_new", methods={"GET","POST"})
@@ -84,9 +60,7 @@ class AbonnementController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $image = $form->get('image')->getData();
-
             if ($image) {
                 $newFilename = uniqid() . '.' . $image->guessExtension();
 
@@ -102,7 +76,6 @@ class AbonnementController extends AbstractController
                 $abonnement->setImage($newFilename);
 
                 $entityManager = $this->getDoctrine()->getManager();
-
                 $entityManager->persist($abonnement);
                 $entityManager->flush();
             }
@@ -134,11 +107,25 @@ class AbonnementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $newFilename = uniqid() . '.' . $image->guessExtension();
 
-            return $this->redirectToRoute('abonnement_index');
+                try {
+                    $image->move(
+                        $this->getParameter('abonnement_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $exception) {
+                    $this->addFlash('error', 'Une erreur est survenue lors de la récupération de l\'image');
+                }
+
+                $abonnement->setImage($newFilename);
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('abonnement_index');
+            }
         }
-
         return $this->render('abonnement/edit.html.twig', [
             'abonnement' => $abonnement,
             'form' => $form->createView(),

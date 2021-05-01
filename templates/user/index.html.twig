@@ -3,32 +3,40 @@
 {% block title %}Wolfit-User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>Liste utilisateur</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Prenom</th>
-                <th>Nom</th>
-                <th>Sexe</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>MDP</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Sexe</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
+                <td>{% for role in user.roles %}
+                        {% if role == "ROLE_USER" %}
+                            Utilisateurs
+                        {% elseif role == "ROLE_REDACTOR" %}
+                            Rédacteur
+                        {% elseif role == "ROLE_ADMIN" %}
+                            Administrateur
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>&bull;&bull;&bull;&bull;&bull;&bull;</td>
                 <td>{{ user.prenom }}</td>
                 <td>{{ user.nom }}</td>
                 <td>{{ user.sexe }}</td>
                 <td>
-                    {# <a href="{{ path('user_show', {'id': user.id}) }}">show</a> #}
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -38,6 +46,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
 {% endblock %}
