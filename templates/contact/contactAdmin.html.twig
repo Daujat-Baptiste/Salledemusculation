@@ -4,41 +4,54 @@
 
 {% block body %}
     {{ include('menuAdmin.html.twig') }}
-    <h1>Contacts</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Contenu</th>
-            <th>Expediteur</th>
-            <th>Répondu</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for contact in contacts %}
+    <div class="container-fluid">
+        <table class="container-fluid bg-dark">
+            <hr class="my-8">
             <tr>
-                <td>{{ contact.contenu }}</td>
-                <td>{{ contact.email }}</td>
-                <td>{% if contact.lu == true %}
-                        <input type="checkbox" checked/>
-                    {% else %}
-                        <input type="checkbox"/>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('mailResponse', {'id': contact.id}) }}">Répondre</a>
-                </td>
-                <td>
-                    {{ include('contact/_delete_form.html.twig') }}
-                </td>
+                <th>
+                    Liste des contacts :
+                    <hr class="my-8">
+                </th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">Pas d'enregistrements</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {% for contact in contacts %}
+                <tr>
+                    <td class="text-center">
+                        {{ contact.email }}
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center">
+                        {{ contact.contenu }}
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center">
+                        <span>Répondu</span>
+                        <br>
+                        {% if contact.lu == true %}
+                            <input type="checkbox" checked/>
+                        {% else %}
+                            <input type="checkbox"/>
+                        {% endif %}
+
+                        <hr class="my-4">
+                    </td>
+                    <td class="text-center align-baseline">
+                        <a class="btn btn-info btn-sm"
+                           href="{{ path('mailResponse', {'id': contact.id}) }}">Répondre</a>
+                    </td>
+                    <td class="text-center align-baseline">
+                        {{ include('contact/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Pas d'enregistrements</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
+
+
+

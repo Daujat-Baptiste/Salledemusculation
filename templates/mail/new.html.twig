@@ -3,6 +3,7 @@
 {% block title %}New Mail{% endblock %}
 
 {% block body %}
+    {{ include('menuAdmin.html.twig') }}
     <h1>Ecrire un Email</h1>
     <div class="container">
         {{ include('mail/_form.html.twig') }}
