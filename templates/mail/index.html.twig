@@ -3,6 +3,7 @@
 {% block title %}Mail index{% endblock %}
 
 {% block body %}
+    {{ include('menuAdmin.html.twig') }}
     <h1>Mails</h1>
     <a href="{{ path('mail_new') }}">Ecrire un mail</a>
 

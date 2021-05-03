@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ErrorController extends AbstractController
 {
     /**
-     * @Route("/error", name="index")
+     * @Route("/error", name="error")
      */
-    public function index(AccueilRepository $repository)
+    public function error(AccueilRepository $repository)
     {
         return $this->redirectToRoute("index", [
             'article'=>$repository->findAll()]);

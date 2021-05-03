@@ -89,11 +89,10 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("/admin/contact", name="contact_admin", methods={"GET","POST"})
+     * @Route("/admin/contact", name="contact_admin", methods={"GET"})
      */
     public function listecontact(ContactRepository $contactRepository, Request $request): Response
     {
-
         return $this->render('contact/contactAdmin.html.twig', [
             'contacts' => $contactRepository->findAll(),
         ]);
